@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import usersModel from "../models/users.model";
+import { SearchQuery } from "../intefaces/users.interfaces";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const searchName = req.params.searchName;
+    const { searchName }: { searchName: String } = req.query;
     const total = await usersModel.countDocuments();
-    const query: = {};
+    const query: SearchQuery = {};
     if (searchName) {
-      query.name = `/${searchName}/`;
+      query.name = new RegExp(searchName, "i");
     }
-    const users = await usersModel.find({});
+    console.log(query);
+    const users = await usersModel.find(query);
     return res.json({ users, total });
   } catch (error) {
     console.log(`Error in updating the user : ${error}`);

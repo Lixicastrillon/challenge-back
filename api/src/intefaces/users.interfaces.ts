@@ -1,9 +1,3 @@
-
-export  interface SearchQuery {
-    searchName?:String;
-    
-
-
-
-
+export interface SearchQuery {
+  name?: RegExp;
 }
