@@ -1,5 +1,6 @@
 export interface Users {
-  name: String;
+  _id: string;
+  name: string;
   sex: "male" | "female";
   age: number;
   employee: boolean;
@@ -9,6 +10,13 @@ export interface queryUsers {
   searchName?: string;
   filterBySex?: string;
   filterByEmployee?: string;
-  page?: string;
-  pageSize?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface postUser {
+  name: string;
+  age: number;
+  sex: string;
+  employee: string;
 }
