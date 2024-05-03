@@ -25,7 +25,7 @@ export const getUsers = async (
     if (filterByEmployee) {
       query.employee = filterByEmployee === "true";
     }
-    const skip = (parseInt(page) - 1) * parseInt(pageSize);
+    const skip = parseInt(page) * parseInt(pageSize);
     const users = await usersModel.aggregate([
       // match : filtrar
       { $match: query },
