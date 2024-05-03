@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import ListUsers from "./components/ListUsers/ListUsers";
+import axios from "axios";
+import { Users, queryUsers } from "./interfaces/users.interfaces";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [users, setUsers] = useState<Users[]>([]);
+  const [search, setSearch] = useState<string>("");
+  const [filterBySex, setFilterBySex] = useState<string>("");
+  const [filterEmployee, setFilterEmployee] = useState<string>("");
+
+  let params: queryUsers = {};
+  if (search) params.searchName = search;
+  if (filterBySex) params.filterBySex = filterBySex;
+  if (filterEmployee) params.filterByEmployee = filterEmployee;
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // Get users data from API
+  const getData = async () => {
+    try {
+      let data = await axios.get("http://localhost:3000/users", { params });
+      setUsers(data.data.users);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  };
+
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setSearch(e.currentTarget.value);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <form>
+        <input
+          type="text"
+          placeholder="escribe el nombre"
+          onChange={(e) => handleChange(e)}
+        ></input>
+        <input type="submit" value="buscar" className="bg-purple-500"></input>
+      </form>
+      <ListUsers users={users} />
+    </div>
+  );
 }
 
-export default App
+export default App;
