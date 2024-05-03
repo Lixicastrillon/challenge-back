@@ -6,6 +6,7 @@ import { fillDb } from "./data/fillDb";
 import cors from "cors";
 
 const app = express();
+//middlewares
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // recibir formularios - ex- sin archivos

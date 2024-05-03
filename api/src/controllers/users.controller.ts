@@ -32,7 +32,7 @@ export const getUsers = async (
       // facet :organizar datos , como devolver los datos.
       {
         $facet: {
-          result: [{ $skip: skip }, { $limit: parseInt(pageSize) }],
+          result: [{ $skip: skip }, { $limit: parseInt(pageSize) }], // cuantos se va saltar, cuantos va enviar
           count: [
             {
               $count: "count",
