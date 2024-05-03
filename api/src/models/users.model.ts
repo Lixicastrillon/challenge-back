@@ -15,7 +15,11 @@ const UserSchema = new Schema({
   age: {
     type: Number,
     required: true,
-    lowercase: true,
+  },
+  employee: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
 });
 
