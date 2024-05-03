@@ -58,9 +58,10 @@ export const getUserById = async (req: Request, res: Response) => {
     if (!_id) return res.status(400).send("invalid id");
     const userById = await usersModel.findById(_id);
     if (!userById) return res.status(404).send("User not found.");
+    return res.json(userById);
   } catch (error) {
     console.log(`message : ${error}`);
-    return res.status(500).send("Server Error!");
+    return res.status(500).send("invalid id");
   }
 };
 
