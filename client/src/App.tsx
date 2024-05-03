@@ -14,6 +14,8 @@ function App() {
   const [pageCount, setPageCount] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5); // cuantos se van a mostrar
   const [page, setPage] = useState<number>(1);
+  const [totalUsers, setTotalUsers] = useState<number>(0);
+  const [totalfoundUsers, setTotalfoundUsers] = useState<number>(0);
 
   useEffect(() => {
     getData(search, filterBySex, filterEmployee, pageSize, page);
@@ -38,6 +40,8 @@ function App() {
       let data = await axios.get("http://localhost:3000/users", { params });
       setUsers(data.data.users);
       setPageCount(data.data.totalPages);
+      setTotalUsers(data.data.totalUsers);
+      setTotalfoundUsers(data.data.totalFoundUsers);
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -126,6 +130,14 @@ function App() {
               crear nuevo usuario
             </button>
           </Link>
+        </div>
+        <div>
+          <p className="mt-2 block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+            total usuarios:{totalUsers}
+          </p>
+          <p className="mt-2 block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+            Total usuarios filtrados:{totalfoundUsers}
+          </p>
         </div>
       </div>
 
