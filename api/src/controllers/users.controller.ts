@@ -11,10 +11,11 @@ export const getUsers = async (
       searchName,
       filterBySex,
       pageSize = "10",
-      page = "1",
+      page = "0",
       filterByEmployee,
     } = req.query; // page #pagina - pagesize #elementos
-    const total = await usersModel.countDocuments();
+
+    const total = await usersModel.countDocuments(); //cuenta los usuarios
     const query: SearchQuery = {};
     if (searchName) {
       query.name = new RegExp(searchName, "i");
@@ -25,9 +26,11 @@ export const getUsers = async (
     if (filterByEmployee) {
       query.employee = filterByEmployee === "true";
     }
+    //cuantos se va saltar
     const skip = parseInt(page) * parseInt(pageSize);
+
     const users = await usersModel.aggregate([
-      // match : filtrar
+      // match : filtrar // lo que sea igual a ...
       { $match: query },
       // facet :organizar datos , como devolver los datos.
       {
@@ -56,6 +59,7 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
     if (!_id) return res.status(400).send("invalid id");
+
     const userById = await usersModel.findById(_id);
     if (!userById) return res.status(404).send("User not found.");
     return res.json(userById);

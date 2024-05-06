@@ -21,7 +21,7 @@ function App() {
     getData(search, filterBySex, filterEmployee, pageSize, page);
   }, [search, filterBySex, filterEmployee, page, pageSize]);
 
-  // Get users data from API
+  // Get users data
   const getData = async (
     search: string,
     filterBySex: string,

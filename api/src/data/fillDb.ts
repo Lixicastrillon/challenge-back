@@ -836,6 +836,7 @@ const data = [
     employee: false,
   },
 ];
+
 export const fillDb = async () => {
   await usersModel.deleteMany(); //borrar muchos
   await usersModel.insertMany(data); // insertar muchos

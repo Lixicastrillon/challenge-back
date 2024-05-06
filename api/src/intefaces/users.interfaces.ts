@@ -3,6 +3,7 @@ export interface SearchQuery {
   name?: RegExp;
   employee?: boolean;
 }
+
 export interface queryUsers {
   searchName: string;
   filterBySex: string;
