@@ -2,7 +2,6 @@ import { Users } from "../../interfaces/users.interfaces";
 import CardUser from "../CardUser/CardUser";
 
 const ListUsers = ({ users }: { users: Users[] }) => {
-  console.log(users);
   return (
     <div className="flex justify-center">
       <div>

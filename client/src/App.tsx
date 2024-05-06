@@ -29,12 +29,13 @@ function App() {
     pageSize: number,
     page: number
   ) => {
-    let params: queryUsers = {};
+    let params: queryUsers = {
+      page: page,
+      pageSize: pageSize,
+    };
     if (search) params.searchName = search;
     if (filterBySex) params.filterBySex = filterBySex;
     if (filterEmployee) params.filterByEmployee = filterEmployee;
-    params.page = page;
-    params.pageSize = pageSize;
 
     try {
       let data = await axios.get("http://localhost:3000/users", { params });
@@ -65,6 +66,11 @@ function App() {
 
   const handlePageClick = (e: any) => {
     setPage(e.selected);
+  };
+
+  const handlepageSize = (e: React.FormEvent<HTMLSelectElement>) => {
+    setPageSize(parseInt(e.currentTarget.value));
+    setPage(0);
   };
 
   return (
@@ -153,7 +159,7 @@ function App() {
             <select
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={pageSize}
-              onChange={(e) => setPageSize(parseInt(e.currentTarget.value))}
+              onChange={(e) => handlepageSize(e)}
             >
               <option selected value={5}>
                 5

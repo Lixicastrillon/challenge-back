@@ -23,16 +23,23 @@ export const DetailUser = () => {
       console.log(`message : ${error}`);
     }
   };
-  const handleChange = (e: any) => {
-    if (e.target.name === "employee") {
+
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    if (e.currentTarget.name === "employee") {
       setUser({
         ...user,
-        employee: e.target.value === "true",
+        employee: e.currentTarget.value === "true",
       });
     }
     setUser({
       ...user,
-      [e.target.name]: e.target.value,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  };
+  const handleChangee = (e: React.FormEvent<HTMLSelectElement>) => {
+    setUser({
+      ...user,
+      [e.currentTarget.name]: e.currentTarget.value,
     });
   };
 
@@ -104,7 +111,7 @@ export const DetailUser = () => {
             name="sex"
             value={user.sex}
             disabled={edit}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangee(e)}
           >
             <option value={"female"}>Femenino 👩🏻‍🦰</option>
             <option value={"male"}>Masculino 👨🏽</option>
@@ -117,7 +124,7 @@ export const DetailUser = () => {
             name="employee"
             value={user.employee?.toString()}
             disabled={edit}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangee(e)}
           >
             <option value={"true"}>si</option>
             <option value={"false"}>No</option>
